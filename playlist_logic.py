@@ -159,8 +159,8 @@ def search_songs(
     query: str,
     field: str = "artist",
 ) -> List[Song]:
-    """Return songs matching the query on a given field."""
-    if not query:
+    """Return songs matching the query on a given field (partial, case-insensitive)."""
+    if not query.strip():
         return songs
 
     q = query.lower().strip()
@@ -168,7 +168,7 @@ def search_songs(
 
     for song in songs:
         value = str(song.get(field, "")).lower()
-        if value and value in q:
+        if q in value:
             filtered.append(song)
 
     return filtered
